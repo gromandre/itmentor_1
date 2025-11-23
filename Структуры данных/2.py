@@ -52,7 +52,6 @@ def selection_sort(list, _is_recursive=False):
 
 # Быстрая сортировака
 @timer
-# 2 1 3
 def q_sort(list, _is_recursive=False):
     if len(list) < 2:
         return list
