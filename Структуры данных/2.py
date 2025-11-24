@@ -62,7 +62,8 @@ def q_sort(list, _is_recursive=False):
         return  q_sort(prev, _is_recursive=True) + [separator] + q_sort(second, _is_recursive=True)
 
 # Генерация списка из 10 случайных чисел от 1 до 99
-random_list = [random.randint(1,100) for num in range(1, 11)]
+count_nums = 10
+random_list = [random.randint(1,100) for num in range(1, count_nums +1)]
 
 min_num, max_num = serch_min_and_max_num(random_list)
 
