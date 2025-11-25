@@ -17,8 +17,6 @@ def serch_min_and_max_num(list):
 
     return min_num, max_num
 
-import time
-
 def timer(func):
     def wrapper(*args, **kwargs):
         # Если это НЕ рекурсивный уровень → измеряем время
