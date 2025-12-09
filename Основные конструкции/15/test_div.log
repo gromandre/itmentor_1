@@ -1,0 +1,11 @@
+test_div 2025-12-09 20:13:13,125 INFO Testing the custom logger for module test_div...
+test_div 2025-12-09 20:13:13,126 INFO x/y successful with result: 0.4.
+test_div 2025-12-09 20:13:13,126 INFO x/y successful with result: 0.42857142857142855.
+test_div 2025-12-09 20:13:13,126 INFO x/y successful with result: 0.5.
+test_div 2025-12-09 20:13:13,126 ERROR ZeroDivisionError
+Traceback (most recent call last):
+  File "C:\Users\gromo\OneDrive\Рабочий стол\it-mentor\Основные конструкции\15\test_div.py", line 19, in test_division
+    x/y
+    ~^~
+ZeroDivisionError: division by zero
+test_div 2025-12-09 20:13:13,131 INFO x/y successful with result: 10.0.

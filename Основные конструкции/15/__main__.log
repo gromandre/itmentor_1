@@ -1,0 +1,6 @@
+__main__ 2025-12-09 20:13:13,125 INFO Testing the custom logger for module __main__...
+__main__ 2025-12-09 20:13:13,126 INFO Call test_division with args 2 and 5
+__main__ 2025-12-09 20:13:13,126 INFO Call test_division with args 3 and 7
+__main__ 2025-12-09 20:13:13,126 INFO Call test_division with args 6 and 12
+__main__ 2025-12-09 20:13:13,131 INFO Call test_division with args 4 and 0
+__main__ 2025-12-09 20:13:13,131 INFO Call test_division with args 10 and 1
