@@ -9,20 +9,19 @@
 import logging
 import math
 
-py_logger = logging.getLogger(__name__)
-py_logger.setLevel(logging.INFO)
+logger = logging.getLogger()
+FORMAT = '%(name)s %(asctime)s %(levelname)s %(message)s'
 
-py_handler = logging.FileHandler(f'{__name__}.log', mode='w')
-py_formatter = logging.Formatter('%(name)s %(asctime)s %(levelname)s %(message)s')
+file_handler = logging.FileHandler(f'{__name__}.log', mode='w')
+file_handler.setLevel(logging.DEBUG)
 
-py_handler.setFormatter(py_formatter)
-py_logger.addHandler(py_handler)
+logging.basicConfig(level=logging.DEBUG, format=FORMAT, handlers=[file_handler])
 
-py_logger.info(f"Тест кастомного логгера в {__name__}...")
+logger.debug(f"Тест логгера в {__name__}...")
 
-a = 4
-b = 5
-c = 3
+a = 1
+b = 6
+c = 8
 
 
 def solve_quadratic_equation(a: float, b: float, c: float) -> tuple:
@@ -32,17 +31,17 @@ def solve_quadratic_equation(a: float, b: float, c: float) -> tuple:
         x1 = ((-b - math.sqrt(discriminant)) / (2 * a))
         x2 = ((-b + math.sqrt(discriminant)) / (2 * a))
 
-        py_logger.info(f"Successful with result: x1: {x1}, x2: {x2}.")
+        logger.info(f"Successful with result: x1: {x1}, x2: {x2}.")
         return x1, x2
 
     elif discriminant == 0:
         x = -b / (2 * a)
-        py_logger.info(f"Successful with result: x: {x}.")
+        logger.info(f"Successful with result: x: {x}.")
         return (x,)
 
     else:
-        py_logger.error(f'Дискриминант {discriminant} меньше 0, уравнение не имеет действительных корней')
-        print(f'Дискриминант отрицателен, попробуйте еще раз с другими коэффициентами')
+        logger.error(f'Дискриминант {discriminant} меньше 0, уравнение не имеет действительных корней')
+        print(f'Дискриминант {discriminant} отрицателен, попробуйте еще раз с другими коэффициентами')
         return None
 
 
