@@ -35,7 +35,8 @@ def binari_search(list, target):
     else:
         return -1
 
-cont = 100000numbers = [num for num in range(1, cont+1)]
+cont = 1000000
+numbers = [num for num in range(1, cont+1)]
 
 print(linear_search (numbers, cont-10))
 print(binari_search(numbers, cont-10))
