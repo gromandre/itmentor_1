@@ -1,6 +1,14 @@
 import requests
 import json
 import os
+import logging
+
+logging.basicConfig(
+    filename='weather.log',
+    level=logging.DEBUG,
+    format='%(asctime)s | %(levelname)s | %(message)s',
+    encoding='utf-8'
+)
 
 CACHE_FILE = 'cache_geo.json'
 
@@ -15,9 +23,44 @@ def load_cache() -> dict:
     with open(CACHE_FILE, 'r', encoding='utf-8') as file:
         return json.load(file)
 
+logging.info('Старт скрипта')
 
-city = 'Volgograd'
-r = requests.get(f'https://geocoding-api.open-meteo.com/v1/search?name={city}&count=10&language=en&format=json')
-print(r.text)
+city = 'Abakan'
+city = city.lower()
+end_point = 'https://geocoding-api.open-meteo.com/v1/search'
+params = {
+    'name': city,
+    'count': 10,
+    'language': 'en',
+    'format': 'json',
+}
 
-# https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m&timezone=auto&past_days=1&forecast_days=1
+cache = load_cache()
+logging.info('Загрузил кэш')
+
+if city in cache:
+    logging.info('Нашел город {} в кэше'.format(city))
+    print(cache[city])
+else:
+    try:
+        logging.info('Города {} в кэше нет, делаю запрос на сервер'.format(city))
+        response = requests.get(end_point, params=params)
+        response.raise_for_status()
+        logging.info('Ответ от сервера: ОК {}'.format(response.status_code))
+
+        data = response.json()
+        logging.debug(data)
+
+        results = data.get('results')
+        if not results:
+            logging.error(f'Город {city} не найден')
+        else:
+            first = results[0]
+            cache[city] = {"lat": first['latitude'], "lon": first['longitude']}
+            save_cache(cache)
+            logging.info('Город {} cохранен в кэш'.format(city))
+
+    except Exception as e:
+        logging.error(e)
+
+
