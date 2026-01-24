@@ -1,4 +1,5 @@
-a = {'results': [{'id': 2988507, 'name': 'Paris', 'latitude': 48.85341, 'longitude': 2.3488}]}
-print(a['results'][0]['name'])
-
-2
+print(
+            f"1 атакует 2 \n"
+            f"и наносит 3 урона. \n"
+            f"HP "
+        )
