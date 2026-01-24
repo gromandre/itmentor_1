@@ -1,22 +1,17 @@
-import requests
+
 from cache_store import load_cache, save_cache
 import logging
 from logconf import setup_logging
+from geocode_city import get_geocode_city
 
 CACHE_FILE = 'cache_geo.json'
 def main():
     setup_logging()
     logging.info('Старт скрипта')
 
-    city = 'Abakan'
+    city = 'Tula'
     city = city.lower()
-    end_point = 'https://geocoding-api.open-meteo.com/v1/search'
-    params = {
-        'name': city,
-        'count': 10,
-        'language': 'en',
-        'format': 'json',
-    }
+
 
     cache = load_cache(CACHE_FILE)
     logging.info('Загрузил кэш')
@@ -27,14 +22,9 @@ def main():
     else:
         try:
             logging.info('Города {} в кэше нет, делаю запрос на сервер'.format(city))
-            response = requests.get(end_point, params=params)
-            response.raise_for_status()
-            logging.info('Ответ от сервера: ОК {}'.format(response.status_code))
-
-            data = response.json()
-            logging.debug(data)
-
+            data = get_geocode_city(city)
             results = data.get('results')
+
             if not results:
                 logging.error(f'Город {city} не найден')
             else:
