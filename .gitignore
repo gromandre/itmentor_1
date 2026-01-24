@@ -1,0 +1,13 @@
+# PyCharm / IntelliJ
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# Cache / temp files
+cache_geo.json
+
+# Python cache
+__pycache__/
+*.pyc
