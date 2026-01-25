@@ -1,5 +1,6 @@
 import json
 import os
+import logging
 
 def save_cache(path: str, cache: dict) -> None:
     with open(path, 'w', encoding='utf-8') as file:
@@ -7,7 +8,16 @@ def save_cache(path: str, cache: dict) -> None:
 
 def load_cache(path: str) -> dict:
     if not os.path.exists(path):
+        logging.info('Кэш-файл не найден, создаю новый')
         return {}
 
-    with open(path, 'r', encoding='utf-8') as file:
-        return json.load(file)
+    if os.path.getsize(path) == 0:
+        logging.info('Кэш-файл пустой')
+        return {}
+
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        logging.warning('Кэш-файл повреждён, сбрасываю')
+        return {}
