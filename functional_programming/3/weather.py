@@ -4,13 +4,14 @@ import logging
 from logconf import setup_logging
 from geocode_city import get_geocode_city
 from get_temps import get_temp
+from save_forecast import save_forecast
 
 CACHE_FILE = 'cache_geo.json'
 def main():
     setup_logging()
     logging.info('Старт скрипта')
 
-    city = 'Volgograd'
+    city = 'moskva'
     city = city.lower()
 
 
@@ -38,6 +39,7 @@ def main():
                 hours = res["hourly"]["time"]
                 temps = res["hourly"]["temperature_2m"]
                 info_temps = list(zip(hours, temps))
+                cache[city]['current_time'] = res['current']['time']
                 cache[city]['info_temps'] = info_temps
 
 
@@ -52,7 +54,7 @@ def main():
         except Exception as e:
             logging.error(e)
 
-    logging.info('')
+    save_forecast(cache)
 
 if __name__ == "__main__":
     main()
