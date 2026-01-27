@@ -6,7 +6,7 @@ def get_geocode_city(city: str) -> dict|None:
     params = {
         'name': city,
         'count': 10,
-        'language': 'en',
+        'language': 'ru',
         'format': 'json',
     }
 

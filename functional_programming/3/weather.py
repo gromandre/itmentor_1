@@ -5,13 +5,16 @@ from logconf import setup_logging
 from geocode_city import get_geocode_city
 from get_temps import get_temp
 from save_forecast import save_forecast
+from load_cities import parse_args, load_cities
 
 CACHE_FILE = 'cache_geo.json'
 def main():
     setup_logging()
     logging.info('Старт скрипта')
 
-    cities = ['volgograd', 'moskva']
+    args = parse_args()
+    cities = load_cities(args)
+    logging.info(cities)
 
     for city in cities:
         city = city.lower()
