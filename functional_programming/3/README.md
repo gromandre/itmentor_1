@@ -16,9 +16,9 @@ CLI-утилита для получения почасового прогноз
 Файл должен содержать **один город на строку**:
 
 ```text
-Moscow
-Tula
-Saint Petersburg
+Москва
+Тула
+Рязань
 ```
 
 Команды запуска:
@@ -30,26 +30,18 @@ python weather.py --file cities.txt
 ### Ввод городов через аргументы CLI
 
 ```bash
-python weather.py Moscow Tula "Saint Petersburg"
+python weather.py Москва Тула "Рязань"
 ```
 
 ### Комбинированный вариант
 
 ```bash
-python weather.py Moscow --file cities.txt
+python weather.py Москва --file cities.txt
 ```
 
 ## Формат ввода
 - Пустые строки игнорируются
 
-## Пример вывода
-
-```text
-Cities to process:
- - Moscow
- - Tula
- - Saint Petersburg
-```
 
 
 ## Примечание
