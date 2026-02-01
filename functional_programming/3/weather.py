@@ -1,16 +1,19 @@
-
-from cache_store import load_cache, save_cache
 import logging
+from cache_store import load_cache, save_cache
 from logconf import setup_logging
 from geocode_city import get_geocode_city
 from get_temps import get_temp
 from save_forecast import save_forecast
 from load_cities import parse_args, load_cities
+from http_client import make_session
 
 CACHE_FILE = 'cache_geo.json'
+
 def main():
     setup_logging()
     logging.info('Старт скрипта')
+
+    session = make_session()
 
     args = parse_args()
     cities = load_cities(args)
@@ -29,7 +32,7 @@ def main():
         else:
             try:
                 logging.info('Города {} в кэше нет, делаю запрос на сервер'.format(city))
-                data = get_geocode_city(city)
+                data = get_geocode_city(session, city)
                 results = data.get('results')
 
                 if not results:
@@ -39,7 +42,7 @@ def main():
                     cache[city] = {"lat": first['latitude'], "lon": first['longitude']}
 
                     logging.info('Делаю запрос на сервер, чтобы по координатам получить почасовой прогноз на ближайшие 24 часа')
-                    res = get_temp(cache[city]["lat"], cache[city]["lon"])
+                    res = get_temp(session, cache[city]["lat"], cache[city]["lon"])
                     logging.debug(res)
                     hours = res["hourly"]["time"]
                     temps = res["hourly"]["temperature_2m"]
