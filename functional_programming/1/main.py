@@ -37,4 +37,7 @@ data = read_file(10)
 data = filter_data(data)
 data = pow_el_data(data)
 result_sum = agregate_el(data, 3)
-print(result_sum)
+
+
+print(list(read_file(10)))
+print(list(read_file(10)))
