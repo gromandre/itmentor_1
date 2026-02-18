@@ -49,3 +49,4 @@ class Quadrilateral(BasicShape):
 
     def add(self, coordinate: tuple[float, float]):
         raise NotImplementedError('Нельзя добавлять точки в Quadrilateral: фигура должна иметь ровно 4 точки')
+
