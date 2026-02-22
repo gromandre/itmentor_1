@@ -13,4 +13,4 @@ def test_is_rectangle(shape):
 
 def test_add(shape):
     with pytest.raises(NotImplementedError):
-        shape.add(0, 0)
+        shape.add((0, 0))
