@@ -1,6 +1,6 @@
 import requests
-import asyncio
 import threading
+from concurrent.futures import ThreadPoolExecutor
 
 lock = threading.Lock()
 
@@ -10,21 +10,16 @@ def get_status_code(url):
         with open("status_code.txt", "a") as f:
             f.write(f'{url[8:].replace("/", "")}: {r.status_code}\n')
 
-async def run_get_status_code(sem, url):
-    async with sem:
-        await asyncio.to_thread(get_status_code, url)
-
-async def main():
+def main():
     URL = 'https://example.com/'
     requests_amount = 50
     requests_limit = 10
 
-    sem = asyncio.Semaphore(requests_limit)
+    with ThreadPoolExecutor(max_workers=requests_limit) as pool:
+        pool.map(get_status_code, [URL] * requests_amount)
 
-    tasks = [run_get_status_code(sem, URL) for _ in range(requests_amount)]
+if __name__ == "__main__":
+    main()
 
-    await asyncio.gather(*tasks)
-
-asyncio.run(main())
 
 
